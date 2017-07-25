@@ -14,6 +14,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import db.DBConnection;
+import db.MySQLDBConnection;
+
 /**
  * Servlet implementation class VisitHistory
  */
@@ -40,9 +43,15 @@ public class VisitHistory extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	private static final DBConnection connection = new MySQLDBConnection();
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
+			// allow access only if session exists
+//			HttpSession session = request.getSession();
+//			if (session.getAttribute("user") == null) {
+//				response.setStatus(403);
+//				return;
+//			}
 			JSONObject input = RpcParser.parseInput(request);
 			if (input.has("user_id") && input.has("visited")) {
 				String userId = (String) input.get("user_id");
@@ -52,6 +61,7 @@ public class VisitHistory extends HttpServlet {
 					String businessId = (String) array.get(i);
 					visitedRestaurants.add(businessId);
 				}
+				connection.setVisitedRestaurants(userId, visitedRestaurants);
 				RpcParser.writeOutput(response,
 						new JSONObject().put("status", "OK"));
 			} else {
