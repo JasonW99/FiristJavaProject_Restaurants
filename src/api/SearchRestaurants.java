@@ -1,6 +1,8 @@
 package api;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +29,15 @@ public class SearchRestaurants extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("application/json");
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		String username = "";
+		PrintWriter out = response.getWriter();if (request.getParameter("username") != null) {
+		username = request.getParameter("username");
+		out.print("Hello " + username);
+		}
+		out.flush();
+		out.close();
 	}
 
 	/**
