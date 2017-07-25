@@ -42,7 +42,7 @@ public class SearchRestaurants extends HttpServlet {
 				double lat = Double.parseDouble(request.getParameter("lat"));
 				double lon = Double.parseDouble(request.getParameter("lon"));
 				// return some fake restaurants
-				array.put(new JSONObject().put("name", "Panda Express"));
+				array.put(new JSONObject().put("name", userId));
 				array.put(new JSONObject().put("name", "Hong Kong Express"));
 			}
 		} catch (JSONException e) {

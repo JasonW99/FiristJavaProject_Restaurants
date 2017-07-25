@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 /**
- * A utility class to handle rpc related parsing logics.
+ * A utility class to handle rpc(Remote procedure call) related parsing logics.
  */
 public class RpcParser {
 	public static JSONObject parseInput(HttpServletRequest request) {
