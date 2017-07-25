@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Servlet implementation class SearchRestaurants
  */
@@ -32,14 +35,20 @@ public class SearchRestaurants extends HttpServlet {
 		response.setContentType("application/json");
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		String username = "";
-		PrintWriter out = response.getWriter();if (request.getParameter("username") != null) {
+		if (request.getParameter("username") != null) {
 		username = request.getParameter("username");
-		out.print("Hello " + username);
 		}
+		JSONObject obj = new JSONObject();
+		try {
+		obj.put("username", username);
+		} catch (JSONException e) {
+		e.printStackTrace();
+		}
+		PrintWriter out = response.getWriter();
+		out.print(obj);
 		out.flush();
 		out.close();
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
