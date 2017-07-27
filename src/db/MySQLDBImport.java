@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Create DB tables in MySQL.
+ * Initialize DB tables in MySQL environment.
  *
  */
 

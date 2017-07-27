@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 
 import db.DBConnection;
+import db.MongoDBConnection;
 import db.MySQLDBConnection;
 
 /**
@@ -28,6 +29,7 @@ public class RecommendationRestaurants extends HttpServlet {
     }
     
     private static DBConnection connection = new MySQLDBConnection();
+//    DBConnection connection = new MongoDBConnection();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
