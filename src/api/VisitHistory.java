@@ -34,18 +34,29 @@ public class VisitHistory extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	private static final DBConnection connection = new MySQLDBConnection();
-//	DBConnection connection = new MongoDBConnection();
+	//	DBConnection connection = new MongoDBConnection();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// allow access only if session exists
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null) {
+			response.setStatus(403);
+			return;
+		}
 		try {
 			JSONArray array = null;
-			if (request.getParameterMap().containsKey("user_id")) {String userId = request.getParameter("user_id");
+			if (request.getParameterMap().containsKey("user_id")) {
+				String userId = request.getParameter("user_id");
+			/** The above line is wrong, since
+			 * If user "1111" logged in, and get the url http://localhost:8080/Dashi/history?user_id=3333, it will get another user's data!
+			 * we should modify it, say using the user id in the session attribute instead of in the url.
+			 * check out the the doGet function in the LoginServlet file.			 * 
+			 * */
 			Set<String> visited_business_id = connection.getVisitedRestaurants(userId);
 			array = new JSONArray();
 			for (String id : visited_business_id) {

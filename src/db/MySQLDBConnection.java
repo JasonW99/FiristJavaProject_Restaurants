@@ -258,6 +258,18 @@ public class MySQLDBConnection implements DBConnection {
 			if (conn == null) {
 				return false;
 			}
+			/**
+			 * String sql = "SELECT user_id from users WHERE user_id='" + userId + "' and password='" + password + "'";
+			 * System.out.println(sql);
+			 * Statement stmt = conn.createStatement();
+			 * ResultSet rs = stmt.executeQuery(sql);
+			 * 
+			 * the above parts are wrong! (not safe)
+			 * Input ' or '1'='1' or user_id=' as the username, and input anything into the password. Can login.
+			 * so as input ' or user_id='1111' or user_id=' .
+			 * Reason: We are adding strings to construct sql statement, this is very dangerous. 
+			 * The user can input any string and manipulate the sql statement.
+			 * */
 			String sql = "SELECT user_id from users WHERE user_id = ? and password = ?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, userId);

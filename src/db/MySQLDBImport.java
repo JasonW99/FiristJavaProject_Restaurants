@@ -10,7 +10,7 @@ import java.sql.Statement;
  *
  */
 
-public class DBYelpImport {
+public class MySQLDBImport {
 	public static void main(String[] args) {
 		try {
 			// Ensure the driver is imported.
